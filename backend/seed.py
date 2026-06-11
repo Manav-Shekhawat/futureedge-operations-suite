@@ -16,13 +16,14 @@ def seed_db(force_recreate: bool = True):
             Base.metadata.drop_all(bind=engine)
             Base.metadata.create_all(bind=engine)
         else:
+            # Ensure tables exist first
+            Base.metadata.create_all(bind=engine)
             # Check if admin already exists to prevent duplicate seeding
             admin_exists = db.query(User).filter(User.email == "operations@futureedge.edu").first()
             if admin_exists:
                 print("Database already seeded. Skipping safe seeding.")
                 return
             print("Database is empty. Running safe seeding...")
-            Base.metadata.create_all(bind=engine)
 
         # 1. Seed global Settings for FutureEdge Education Services
         print("Seeding production organization settings...")
