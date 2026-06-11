@@ -5,9 +5,13 @@ from sqlalchemy import text
 from app.core.config import settings
 from app.core.database import get_db, engine, Base
 from app.api.v1 import auth, users, leads, reports, docs, settings as api_settings, audit
+from seed import seed_db
 
-# Automatically create tables on startup if they don't exist
-Base.metadata.create_all(bind=engine)
+# Automatically create tables and safely seed default records on startup if empty
+try:
+    seed_db(force_recreate=False)
+except Exception as e:
+    print(f"Safe seeding skipped/failed: {e}")
 
 app = FastAPI(
     title=settings.PROJECT_NAME,

@@ -8,14 +8,22 @@ from app.models.document import Document
 from app.core.security import get_password_hash
 from datetime import datetime, timedelta
 
-def seed_db():
-    print("Deleting existing SQLite database schemas for a clean seeding run...")
-    # Clean recreate
-    Base.metadata.drop_all(bind=engine)
-    Base.metadata.create_all(bind=engine)
-    
+def seed_db(force_recreate: bool = True):
     db: Session = SessionLocal()
     try:
+        if force_recreate:
+            print("Deleting existing database schemas for a clean seeding run...")
+            Base.metadata.drop_all(bind=engine)
+            Base.metadata.create_all(bind=engine)
+        else:
+            # Check if admin already exists to prevent duplicate seeding
+            admin_exists = db.query(User).filter(User.email == "operations@futureedge.edu").first()
+            if admin_exists:
+                print("Database already seeded. Skipping safe seeding.")
+                return
+            print("Database is empty. Running safe seeding...")
+            Base.metadata.create_all(bind=engine)
+
         # 1. Seed global Settings for FutureEdge Education Services
         print("Seeding production organization settings...")
         settings_rec = Settings(
