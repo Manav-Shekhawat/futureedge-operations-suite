@@ -3,8 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from app.core.config import settings
-from app.core.database import get_db
+from app.core.database import get_db, engine, Base
 from app.api.v1 import auth, users, leads, reports, docs, settings as api_settings, audit
+
+# Automatically create tables on startup if they don't exist
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
