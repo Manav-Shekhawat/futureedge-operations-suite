@@ -1,0 +1,28 @@
+# Render Blueprint Specification for FutureEdge Operations Suite Backend
+# For more information, see https://render.com/docs/blueprints
+
+services:
+  - type: web
+    name: futureedge-backend
+    env: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+        description: "Neon PostgreSQL pooled connection string (starts with postgresql:// and sslmode=require)"
+      - key: JWT_SECRET
+        sync: false
+        description: "Secure JWT encryption key (e.g., generated with 'openssl rand -hex 32')"
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: GEMINI_API_KEY
+        sync: false
+        description: "Active Google AI Studio API key (starts with AIzaSy)"
+      - key: BACKEND_CORS_ORIGINS
+        value: "http://localhost:5173"
+        description: "Comma-separated list of allowed frontend URLs (update this to your Vercel URL after deploying the frontend)"
+      - key: ENVIRONMENT
+        value: production
