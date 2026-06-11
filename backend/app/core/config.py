@@ -27,7 +27,7 @@ class Settings(BaseSettings):
     
     # CORS Origins
     BACKEND_CORS_ORIGINS: Annotated[
-        List[str], BeforeValidator(parse_cors)
+        Union[List[str], str], BeforeValidator(parse_cors)
     ] = ["http://localhost:5173", "http://localhost:3000"]
 
     ENVIRONMENT: str = "development"
