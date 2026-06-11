@@ -26,3 +26,5 @@ services:
         description: "Comma-separated list of allowed frontend URLs (update this to your Vercel URL after deploying the frontend)"
       - key: ENVIRONMENT
         value: production
+      - key: PYTHON_VERSION
+        value: 3.10.12
