@@ -1,6 +1,6 @@
 import os
 from typing import List, Union
-from pydantic import AnyHttpUrl, BeforeValidator, field_validator
+from pydantic import AnyHttpUrl, BeforeValidator, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing_extensions import Annotated
 
@@ -29,6 +29,17 @@ class Settings(BaseSettings):
     BACKEND_CORS_ORIGINS: Annotated[
         List[str], BeforeValidator(parse_cors)
     ] = ["http://localhost:5173", "http://localhost:3000"]
+
+    ENVIRONMENT: str = "development"
+
+    @model_validator(mode="after")
+    def validate_production_security(self) -> "Settings":
+        if self.ENVIRONMENT == "production":
+            if not self.JWT_SECRET or self.JWT_SECRET == "supersecretjwtkeythatshouldbechangedinproduction12345!":
+                raise ValueError("Insecure JWT_SECRET detected! A strong, unique JWT_SECRET environment variable must be set in production mode.")
+            if not self.GEMINI_API_KEY:
+                raise ValueError("GEMINI_API_KEY is missing! Google Gemini API key is required in production mode.")
+        return self
 
     model_config = SettingsConfigDict(
         env_file=".env",
