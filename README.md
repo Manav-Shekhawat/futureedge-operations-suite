@@ -62,22 +62,22 @@ graph TD
 The following screenshots demonstrate the core user interfaces of the FutureEdge suite:
 
 ### 1. Secure Production Sign-in
-![FutureEdge Sign-in Screen](/docs/screenshots/login.png)
+![FutureEdge Sign-in Screen](docs/screenshots/login.png)
 
 ### 2. Operations Dashboard
-![FutureEdge Operations Dashboard](/docs/screenshots/dashboard.png)
+![FutureEdge Operations Dashboard](docs/screenshots/dashboard.png)
 
 ### 3. CRM Lead Pipeline
-![FutureEdge Leads CRM](/docs/screenshots/crm.png)
+![FutureEdge Leads CRM](docs/screenshots/crm.png)
 
 ### 4. AI Follow-Up Generator
-![FutureEdge AI Assistant](/docs/screenshots/ai_assistant.png)
+![FutureEdge AI Assistant](docs/screenshots/ai_assistant.png)
 
 ### 5. Morning Chat Reports
-![FutureEdge Morning Chat Reports](/docs/screenshots/morning_report.png)
+![FutureEdge Morning Chat Reports](docs/screenshots/morning_report.png)
 
 ### 6. Document Automation
-![FutureEdge Document Automation](/docs/screenshots/document_automation.png)
+![FutureEdge Document Automation](docs/screenshots/document_automation.png)
 
 ---
 
