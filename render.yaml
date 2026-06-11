@@ -22,7 +22,7 @@ services:
         sync: false
         description: "Active Google AI Studio API key (starts with AIzaSy)"
       - key: BACKEND_CORS_ORIGINS
-        value: "http://localhost:5173"
+        value: "http://localhost:5173,https://futureedge-operations-suite.vercel.app"
         description: "Comma-separated list of allowed frontend URLs (update this to your Vercel URL after deploying the frontend)"
       - key: ENVIRONMENT
         value: production
